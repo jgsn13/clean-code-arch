@@ -43,6 +43,7 @@ export default class Order {
     if (this.coupon) {
       total -= this.coupon.calculateDiscount(total);
     }
+    total += this.getFreight();
     return total;
   }
 }
