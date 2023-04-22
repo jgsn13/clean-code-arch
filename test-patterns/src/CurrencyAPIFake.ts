@@ -1,4 +1,4 @@
-import CurrencyAPI from './CurrencyAPI';
+import CurrencyAPI from 'src/CurrencyAPI.ts';
 
 export default class CurrencyAPIFake implements CurrencyAPI {
   convert(amount: number, currency: string): number {

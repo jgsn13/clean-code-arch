@@ -1,0 +1,23 @@
+{
+  "name": "project",
+  "main": "src/main.ts",
+  "compilerOptions": {
+    "allowJs": true,
+    "strict": true,
+    "lib": ["deno.ns", "deno.window"],
+    "jsx": "react"
+  },
+  "imports": {
+    "std/": "https://deno.land/std@0.184.0/",
+    "src/": "./src/"
+  },
+  "tasks": {
+    "dev": "deno run --watch main.ts",
+    "test": "deno test --watch"
+  },
+  "deno": {
+    "version": "1.32.5",
+    "allowNet": true,
+    "allowRead": true
+  }
+}

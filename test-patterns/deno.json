@@ -1,0 +1,24 @@
+{
+  "name": "project",
+  "main": "src/main.ts",
+  "compilerOptions": {
+    "allowJs": true,
+    "strict": true,
+    "lib": ["deno.ns", "deno.window"],
+    "jsx": "react"
+  },
+  "imports": {
+    "src/": "./src/",
+    "std/": "https://deno.land/std@0.184.0/",
+    "sinon": "https://cdn.skypack.dev/sinon@11.1.2?dts"
+  },
+  "tasks": {
+    "dev": "deno run --watch main.ts",
+    "test": "deno test --watch"
+  },
+  "deno": {
+    "version": "1.32.5",
+    "allowNet": true,
+    "allowRead": true
+  }
+}

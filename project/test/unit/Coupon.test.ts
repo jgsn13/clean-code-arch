@@ -1,21 +1,26 @@
-import Coupon from '../../src/domain/entity/Coupon';
+import { assertEquals } from 'std/testing/asserts.ts';
 
-test('Deve criar um cupom de desconto válido', function () {
+import Coupon from 'src/domain/entity/Coupon.ts';
+
+Deno.test('Deve criar um cupom de desconto válido', function () {
   const coupon = new Coupon('VALE20', 20, new Date('2023-04-22'));
   const today = new Date('2023-04-21');
   const isValid = coupon.isValid(today);
-  expect(isValid).toBeTruthy();
+  assertEquals(isValid, true);
 });
 
-test('Deve criar um cupom de desconto expirado', function () {
+Deno.test('Deve criar um cupom de desconto expirado', function () {
   const coupon = new Coupon('VALE20', 20, new Date('2023-04-20'));
   const today = new Date('2023-04-21');
   const isExpired = coupon.isExpired(today);
-  expect(isExpired).toBeTruthy();
+  assertEquals(isExpired, true);
 });
 
-test('Deve criar um cupom de desconto válido e calcular o desconto', function () {
-  const coupon = new Coupon('VALE20', 20);
-  const amount = coupon.calculateDiscount(1000);
-  expect(amount).toBe(200);
-});
+Deno.test(
+  'Deve criar um cupom de desconto válido e calcular o desconto',
+  function () {
+    const coupon = new Coupon('VALE20', 20);
+    const amount = coupon.calculateDiscount(1000);
+    assertEquals(amount, 200);
+  },
+);

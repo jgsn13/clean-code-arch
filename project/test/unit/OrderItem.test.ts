@@ -1,6 +1,8 @@
-import OrderItem from "../../src/domain/entity/OrderItem";
+import { assertEquals } from 'std/testing/asserts.ts';
 
-test('Deve criar um item do pedido', function () {
+import OrderItem from 'src/domain/entity/OrderItem.ts';
+
+Deno.test('Deve criar um item do pedido', function () {
   const orderItem = new OrderItem(1, 1000, 10);
-  expect(orderItem.getTotal()).toBe(10000);
+  assertEquals(orderItem.getTotal(), 10000);
 });

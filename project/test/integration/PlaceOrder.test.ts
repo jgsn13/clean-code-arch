@@ -1,9 +1,11 @@
-import PlaceOrder from '../../src/application/usecase/PlaceOrder';
-import CouponRepositoryMemory from '../../src/infra/repository/memory/CouponRepositoryMemory';
-import ItemRepositoryMemory from '../../src/infra/repository/memory/ItemRepositoryMemory';
-import OrderRepositoryMemory from '../../src/infra/repository/memory/OrderRepositoryMemory';
+import { assertEquals } from 'std/testing/asserts.ts';
 
-test('Deve fazer um pedido', async function () {
+import PlaceOrder from 'src/application/usecase/PlaceOrder.ts';
+import CouponRepositoryMemory from 'src/infra/repository/memory/CouponRepositoryMemory.ts';
+import ItemRepositoryMemory from 'src/infra/repository/memory/ItemRepositoryMemory.ts';
+import OrderRepositoryMemory from 'src/infra/repository/memory/OrderRepositoryMemory.ts';
+
+Deno.test('Deve fazer um pedido', async function () {
   const itemRepository = new ItemRepositoryMemory();
   const orderRepository = new OrderRepositoryMemory();
   const couponRepository = new CouponRepositoryMemory();
@@ -23,10 +25,10 @@ test('Deve fazer um pedido', async function () {
     coupon: 'VALE20',
   };
   const output = await placeOrder.execute(input);
-  expect(output.total).toBe(88);
+  assertEquals(output.total, 88);
 });
 
-test('Deve fazer um pedido com cálculo de frete', async function () {
+Deno.test('Deve fazer um pedido com cálculo de frete', async function () {
   const itemRepository = new ItemRepositoryMemory();
   const orderRepository = new OrderRepositoryMemory();
   const couponRepository = new CouponRepositoryMemory();
@@ -45,5 +47,5 @@ test('Deve fazer um pedido com cálculo de frete', async function () {
     date: new Date('2023-04-22'),
   };
   const output = await placeOrder.execute(input);
-  expect(output.total).toBe(6350);
+  assertEquals(output.total, 6350);
 });

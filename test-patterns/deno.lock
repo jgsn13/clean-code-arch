@@ -1,0 +1,13 @@
+{
+  "version": "2",
+  "remote": {
+    "https://cdn.skypack.dev/-/@sinonjs/fake-timers@v7.1.2-pt93Fzvqp6qMXzl1XrND/dist=es2019,mode=types/types/fake-timers-src.d.ts": "6b40029289530423f407a22755c85b81740f9acfd88d2b53564f8c1657c26660",
+    "https://cdn.skypack.dev/-/sinon@v11.1.2-gD7yE198nweGBLV5XWgz/dist=es2019,mode=imports/optimized/sinon.js": "0fe70206408639006c4b013933c8a79b171ef80da43911b20038c5e6c0ef7f1b",
+    "https://cdn.skypack.dev/-/sinon@v11.1.2-gD7yE198nweGBLV5XWgz/dist=es2019,mode=types/index.d.ts": "ed5bfbbef7cd90438b454190aa17bcfbd376cd53fa638c411ef7e2e31db4dbac",
+    "https://cdn.skypack.dev/sinon@11.1.2?dts": "9e657d14822452c78c87c3da0e4c9156cc0504ff25f30045dc7508362e21dbf6",
+    "https://deno.land/std@0.184.0/fmt/colors.ts": "d67e3cd9f472535241a8e410d33423980bec45047e343577554d3356e1f0ef4e",
+    "https://deno.land/std@0.184.0/testing/_diff.ts": "1a3c044aedf77647d6cac86b798c6417603361b66b54c53331b312caeb447aea",
+    "https://deno.land/std@0.184.0/testing/_format.ts": "a69126e8a469009adf4cf2a50af889aca364c349797e63174884a52ff75cf4c7",
+    "https://deno.land/std@0.184.0/testing/asserts.ts": "e16d98b4d73ffc4ed498d717307a12500ae4f2cbe668f1a215632d19fcffc22f"
+  }
+}

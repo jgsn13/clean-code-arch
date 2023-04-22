@@ -1,7 +1,7 @@
-import CurrencyAPI from './CurrencyAPI';
+import CurrencyAPI from 'src/CurrencyAPI.ts';
 
 export default class Account {
-  balance: number = 0;
+  balance = 0;
 
   constructor(readonly currencyAPI: CurrencyAPI) {}
 
