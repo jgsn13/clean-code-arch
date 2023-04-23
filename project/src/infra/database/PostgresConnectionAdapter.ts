@@ -1,5 +1,5 @@
-import Connection from 'src/infra/database/Connection.ts';
 import { Client } from 'postgres';
+import Connection from './Connection.ts';
 
 export default class PostgresConnectionAdapter implements Connection {
   client: Client;

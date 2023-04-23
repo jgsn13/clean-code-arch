@@ -1,6 +1,6 @@
 import { assert, assertThrows } from 'std/testing/asserts.ts';
 
-import Cpf from 'src/domain/entity/Cpf.ts';
+import Cpf from '../../src/domain/entity/Cpf.ts';
 
 Deno.test('Deve validar um cpf', function () {
   const cpf = new Cpf('935.411.347-80');

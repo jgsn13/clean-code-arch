@@ -1,6 +1,6 @@
 import { assertEquals } from 'std/testing/asserts.ts';
 
-import Coupon from 'src/domain/entity/Coupon.ts';
+import Coupon from "../../src/domain/entity/Coupon.ts";
 
 Deno.test('Deve criar um cupom de desconto válido', function () {
   const coupon = new Coupon('VALE20', 20, new Date('2023-04-22'));

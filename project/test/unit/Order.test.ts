@@ -1,10 +1,10 @@
 import { assertEquals, assertThrows } from 'std/testing/asserts.ts';
 
-import Coupon from 'src/domain/entity/Coupon.ts';
-import DefaultFreightCalculator from 'src/domain/entity/DefaultFreightCalculator.ts';
-import FixedFreightCalculator from 'src/domain/entity/FixedFreightCalculator.ts';
-import Item from 'src/domain/entity/Item.ts';
-import Order from 'src/domain/entity/Order.ts';
+import Coupon from '../../src/domain/entity/Coupon.ts';
+import DefaultFreightCalculator from '../../src/domain/entity/DefaultFreightCalculator.ts';
+import FixedFreightCalculator from '../../src/domain/entity/FixedFreightCalculator.ts';
+import Item from '../../src/domain/entity/Item.ts';
+import Order from '../../src/domain/entity/Order.ts';
 
 Deno.test('Deve criar um pedido vazio com CPF válido', function () {
   const cpf = '592.794.780-87';

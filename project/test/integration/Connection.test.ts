@@ -1,5 +1,5 @@
 import { assertEquals } from 'std/testing/asserts.ts';
-import PostgresConnectionAdapter from 'src/infra/database/PostgresConnectionAdapter.ts';
+import PostgresConnectionAdapter from '../../src/infra/database/PostgresConnectionAdapter.ts';
 
 Deno.test('Deve criar uma conexão com o banco de dados', async function () {
   const connection = new PostgresConnectionAdapter();

@@ -1,6 +1,6 @@
-import Order from 'src/domain/entity/Order.ts';
-import OrderRepository from 'src/domain/repository/OrderRepository.ts';
-import Connection from 'src/infra/database/Connection.ts';
+import Order from '../../../domain/entity/Order.ts';
+import OrderRepository from '../../../domain/repository/OrderRepository.ts';
+import Connection from '../../database/Connection.ts';
 
 export default class OrderRepositoryDatabase implements OrderRepository {
   constructor(readonly connection: Connection) {}

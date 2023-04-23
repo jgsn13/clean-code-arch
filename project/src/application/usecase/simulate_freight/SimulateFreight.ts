@@ -1,7 +1,7 @@
-import ItemRepository from 'src/domain/repository/ItemRepository.ts';
-import SimulateFreightInput from 'src/application/usecase/simulate_freight/SimulateFreightInput.ts';
-import SimulateFreightOutput from 'src/application/usecase/simulate_freight/SimulateFreightOutput.ts';
-import FreightCalculator from 'src/domain/entity/FreightCalculator.ts';
+import FreightCalculator from "../../../domain/entity/FreightCalculator.ts";
+import ItemRepository from "../../../domain/repository/ItemRepository.ts";
+import SimulateFreightInput from "./SimulateFreightInput.ts";
+import SimulateFreightOutput from "./SimulateFreightOutput.ts";
 
 export default class SimulateFreight {
   constructor(

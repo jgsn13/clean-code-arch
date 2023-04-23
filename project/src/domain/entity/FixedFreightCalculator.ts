@@ -1,5 +1,5 @@
-import FreightCalculator from 'src/domain/entity/FreightCalculator.ts';
-import Item from 'src/domain/entity/Item.ts';
+import FreightCalculator from './FreightCalculator.ts';
+import Item from './Item.ts';
 
 export default class FixedFreightCalculator implements FreightCalculator {
   calculate(item: Item): number {

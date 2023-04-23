@@ -1,10 +1,10 @@
 import { assertEquals } from 'std/testing/asserts.ts';
 
-import PlaceOrder from 'src/application/usecase/PlaceOrder.ts';
-import PostgresConnectionAdapter from 'src/infra/database/PostgresConnectionAdapter.ts';
-import ItemRepositoryDatabase from 'src/infra/repository/database/ItemRepositoryDatabase.ts';
-import CouponRepositoryDatabase from 'src/infra/repository/database/CouponRepositoryDatabase.ts';
-import OrderRepositoryDatabase from 'src/infra/repository/database/OrderRepositoryDatabase.ts';
+import PlaceOrder from '../../src/application/usecase/place_order/PlaceOrder.ts';
+import PostgresConnectionAdapter from '../../src/infra/database/PostgresConnectionAdapter.ts';
+import CouponRepositoryDatabase from '../../src/infra/repository/database/CouponRepositoryDatabase.ts';
+import ItemRepositoryDatabase from '../../src/infra/repository/database/ItemRepositoryDatabase.ts';
+import OrderRepositoryDatabase from '../../src/infra/repository/database/OrderRepositoryDatabase.ts';
 
 let placeOrder: PlaceOrder;
 let orderRepository: OrderRepositoryDatabase;

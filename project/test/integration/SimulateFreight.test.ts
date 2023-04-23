@@ -1,9 +1,10 @@
 import { assertEquals } from 'std/testing/asserts.ts';
-import PostgresConnectionAdapter from 'src/infra/database/PostgresConnectionAdapter.ts';
-import ItemRepositoryDatabase from 'src/infra/repository/database/ItemRepositoryDatabase.ts';
-import DefaultFreightCalculator from 'src/domain/entity/DefaultFreightCalculator.ts';
-import SimulateFreight from 'src/application/usecase/simulate_freight/SimulateFreight.ts';
-import SimulateFreightInput from 'src/application/usecase/simulate_freight/SimulateFreightInput.ts';
+
+import SimulateFreight from '../../src/application/usecase/simulate_freight/SimulateFreight.ts';
+import SimulateFreightInput from '../../src/application/usecase/simulate_freight/SimulateFreightInput.ts';
+import DefaultFreightCalculator from '../../src/domain/entity/DefaultFreightCalculator.ts';
+import PostgresConnectionAdapter from '../../src/infra/database/PostgresConnectionAdapter.ts';
+import ItemRepositoryDatabase from '../../src/infra/repository/database/ItemRepositoryDatabase.ts';
 
 Deno.test('Deve simular o frete dos itens', async function () {
   const connection = new PostgresConnectionAdapter();

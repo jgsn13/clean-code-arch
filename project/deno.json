@@ -9,7 +9,6 @@
   },
   "imports": {
     "std/": "https://deno.land/std@0.184.0/",
-    "src/": "./src/",
     "postgres": "https://deno.land/x/postgres@v0.17.0/mod.ts"
   },
   "tasks": {
