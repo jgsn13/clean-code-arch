@@ -13,8 +13,8 @@
   },
   "tasks": {
     "dev": "deno run --watch main.ts",
-    "test:watch": "deno test --watch --allow-env --allow-read --allow-net",
-    "test:coverage": "deno test --coverage=coverage && deno coverage ./coverage"
+    "test": "deno test --allow-env --allow-read --allow-net"
+    "coverage": "rm -rf ./coverage && deno test --allow-env --allow-read --allow-net --coverage=coverage && deno coverage ./coverage"
   },
   "lint": {
     "rules": {
