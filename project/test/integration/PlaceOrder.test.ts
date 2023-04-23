@@ -10,7 +10,7 @@ let placeOrder: PlaceOrder;
 let orderRepository: OrderRepositoryDatabase;
 
 function beforeEach() {
-  const connection = new PostgresConnectionAdapter();
+  const connection = PostgresConnectionAdapter.getInstance();
   const itemRepository = new ItemRepositoryDatabase(connection);
   orderRepository = new OrderRepositoryDatabase(connection);
   const couponRepository = new CouponRepositoryDatabase(connection);

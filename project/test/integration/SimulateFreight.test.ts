@@ -7,7 +7,7 @@ import PostgresConnectionAdapter from '../../src/infra/database/PostgresConnecti
 import ItemRepositoryDatabase from '../../src/infra/repository/database/ItemRepositoryDatabase.ts';
 
 Deno.test('Deve simular o frete dos itens', async function () {
-  const connection = new PostgresConnectionAdapter();
+  const connection = PostgresConnectionAdapter.getInstance();
   const itemRepository = new ItemRepositoryDatabase(connection);
   const freightCalculator = new DefaultFreightCalculator();
   const simulateFreight = new SimulateFreight(
