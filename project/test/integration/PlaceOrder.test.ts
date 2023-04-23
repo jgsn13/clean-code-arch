@@ -1,19 +1,38 @@
 import { assertEquals } from 'std/testing/asserts.ts';
 
 import PlaceOrder from 'src/application/usecase/PlaceOrder.ts';
-import CouponRepositoryMemory from 'src/infra/repository/memory/CouponRepositoryMemory.ts';
-import ItemRepositoryMemory from 'src/infra/repository/memory/ItemRepositoryMemory.ts';
-import OrderRepositoryMemory from 'src/infra/repository/memory/OrderRepositoryMemory.ts';
+import PostgresConnectionAdapter from 'src/infra/database/PostgresConnectionAdapter.ts';
+import ItemRepositoryDatabase from 'src/infra/repository/database/ItemRepositoryDatabase.ts';
+import CouponRepositoryDatabase from 'src/infra/repository/database/CouponRepositoryDatabase.ts';
+import OrderRepositoryDatabase from 'src/infra/repository/database/OrderRepositoryDatabase.ts';
 
-Deno.test('Deve fazer um pedido', async function () {
-  const itemRepository = new ItemRepositoryMemory();
-  const orderRepository = new OrderRepositoryMemory();
-  const couponRepository = new CouponRepositoryMemory();
-  const placeOrder = new PlaceOrder(
+let placeOrder: PlaceOrder;
+let orderRepository: OrderRepositoryDatabase;
+
+function beforeEach() {
+  const connection = new PostgresConnectionAdapter();
+  const itemRepository = new ItemRepositoryDatabase(connection);
+  orderRepository = new OrderRepositoryDatabase(connection);
+  const couponRepository = new CouponRepositoryDatabase(connection);
+  placeOrder = new PlaceOrder(
     itemRepository,
     orderRepository,
     couponRepository,
   );
+}
+
+function test(name: string, fn: () => Promise<void>) {
+  Deno.test({
+    name,
+    async fn() {
+      beforeEach();
+      await fn();
+      await afterEach();
+    },
+  });
+}
+
+test('Deve fazer um pedido', async function () {
   const input = {
     cpf: '592.794.780-87',
     orderItems: [
@@ -25,18 +44,10 @@ Deno.test('Deve fazer um pedido', async function () {
     coupon: 'VALE20',
   };
   const output = await placeOrder.execute(input);
-  assertEquals(output.total, 88);
+  assertEquals(output.total, 138);
 });
 
-Deno.test('Deve fazer um pedido com cálculo de frete', async function () {
-  const itemRepository = new ItemRepositoryMemory();
-  const orderRepository = new OrderRepositoryMemory();
-  const couponRepository = new CouponRepositoryMemory();
-  const placeOrder = new PlaceOrder(
-    itemRepository,
-    orderRepository,
-    couponRepository,
-  );
+test('Deve fazer um pedido com cálculo de frete', async function () {
   const input = {
     cpf: '592.794.780-87',
     orderItems: [
@@ -50,15 +61,7 @@ Deno.test('Deve fazer um pedido com cálculo de frete', async function () {
   assertEquals(output.total, 6350);
 });
 
-Deno.test('Deve fazer um pedido com código', async function () {
-  const itemRepository = new ItemRepositoryMemory();
-  const orderRepository = new OrderRepositoryMemory();
-  const couponRepository = new CouponRepositoryMemory();
-  const placeOrder = new PlaceOrder(
-    itemRepository,
-    orderRepository,
-    couponRepository,
-  );
+test('Deve fazer um pedido com código', async function () {
   const input = {
     cpf: '592.794.780-87',
     orderItems: [
@@ -71,3 +74,7 @@ Deno.test('Deve fazer um pedido com código', async function () {
   const output = await placeOrder.execute(input);
   assertEquals(output.code, '202300000001');
 });
+
+async function afterEach() {
+  await orderRepository.clear();
+}

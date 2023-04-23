@@ -9,16 +9,23 @@
   },
   "imports": {
     "std/": "https://deno.land/std@0.184.0/",
-    "src/": "./src/"
+    "src/": "./src/",
+    "postgres": "https://deno.land/x/postgres@v0.17.0/mod.ts"
   },
   "tasks": {
     "dev": "deno run --watch main.ts",
-    "test:watch": "deno test --watch",
+    "test:watch": "deno test --watch --allow-env --allow-read --allow-net",
     "test:coverage": "deno test --coverage=coverage && deno coverage ./coverage"
+  },
+  "lint": {
+    "rules": {
+      "exclude": ["no-explicit-any"]
+    }
   },
   "deno": {
     "version": "1.32.5",
     "allowNet": true,
-    "allowRead": true
+    "allowRead": true,
+    "allowEnv": true
   }
 }
