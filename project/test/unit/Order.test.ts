@@ -111,3 +111,19 @@ Deno.test(
     assertEquals(freight, 50);
   },
 );
+
+Deno.test('Deve criar um pedido com código', function () {
+  const cpf = '592.794.780-87';
+  const order = new Order(cpf, new Date(), new FixedFreightCalculator());
+  order.addItem(
+    new Item(1, 'Instrumentos Musicais', 'Guitarra', 1000, 100, 30, 10, 3),
+    1,
+  );
+  order.addItem(
+    new Item(2, 'Instrumentos Musicais', 'Amplificador', 5000, 100, 50, 50, 20),
+    1,
+  );
+  order.addItem(new Item(3, 'Acessórios', 'Cabo', 30, 10, 10, 10, 0.9), 3);
+  const code = order.getCode();
+  assertEquals(code, '202300000001');
+});

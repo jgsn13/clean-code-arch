@@ -49,3 +49,25 @@ Deno.test('Deve fazer um pedido com cálculo de frete', async function () {
   const output = await placeOrder.execute(input);
   assertEquals(output.total, 6350);
 });
+
+Deno.test('Deve fazer um pedido com código', async function () {
+  const itemRepository = new ItemRepositoryMemory();
+  const orderRepository = new OrderRepositoryMemory();
+  const couponRepository = new CouponRepositoryMemory();
+  const placeOrder = new PlaceOrder(
+    itemRepository,
+    orderRepository,
+    couponRepository,
+  );
+  const input = {
+    cpf: '592.794.780-87',
+    orderItems: [
+      { idItem: 4, quantity: 1 },
+      { idItem: 5, quantity: 1 },
+      { idItem: 6, quantity: 3 },
+    ],
+    date: new Date('2023-04-22'),
+  };
+  const output = await placeOrder.execute(input);
+  assertEquals(output.code, '202300000001');
+});

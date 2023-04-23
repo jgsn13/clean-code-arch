@@ -4,6 +4,7 @@ import ItemRepository from 'src/domain/repository/ItemRepository.ts';
 import OrderRepository from 'src/domain/repository/OrderRepository.ts';
 import PlaceOrderInput from 'src/application/usecase/PlaceOrderInput.ts';
 import PlaceOrderOutput from 'src/application/usecase/PlaceOrderOutput.ts';
+import DefaultFreightCalculator from 'src/domain/entity/DefaultFreightCalculator.ts';
 
 export default class PlaceOrder {
   constructor(
@@ -13,7 +14,13 @@ export default class PlaceOrder {
   ) {}
 
   async execute(input: PlaceOrderInput): Promise<PlaceOrderOutput> {
-    const order = new Order(input.cpf, input.date);
+    const sequence = (await this.orderRepository.count()) + 1;
+    const order = new Order(
+      input.cpf,
+      input.date,
+      new DefaultFreightCalculator(),
+      sequence,
+    );
     for (const orderItem of input.orderItems) {
       const item = await this.itemRepository.findById(orderItem.idItem);
       if (!item) throw new Error('Item not found');
@@ -25,7 +32,7 @@ export default class PlaceOrder {
     }
     await this.orderRepository.save(order);
     const total = order.getTotal();
-    const output = new PlaceOrderOutput(total);
+    const output = new PlaceOrderOutput(order.getCode(), total);
     return output;
   }
 }

@@ -4,21 +4,25 @@ import DefaultFreightCalculator from 'src/domain/entity/DefaultFreightCalculator
 import FreightCalculator from 'src/domain/entity/FreightCalculator.ts';
 import Item from 'src/domain/entity/Item.ts';
 import OrderItem from 'src/domain/entity/OrderItem.ts';
+import OrderCode from 'src/domain/entity/OrderCode.ts';
 
 export default class Order {
   cpf: Cpf;
   private orderItems: OrderItem[];
   coupon?: Coupon;
   private freight: number;
+  private code: OrderCode;
 
   constructor(
     cpf: string,
     readonly date: Date = new Date(),
     readonly freightCalculator: FreightCalculator = new DefaultFreightCalculator(),
+    readonly sequence: number = 1,
   ) {
     this.cpf = new Cpf(cpf);
     this.orderItems = [];
     this.freight = 0;
+    this.code = new OrderCode(date, sequence);
   }
 
   addItem(item: Item, quantity: number) {
@@ -33,6 +37,10 @@ export default class Order {
 
   getFreight() {
     return this.freight;
+  }
+
+  getCode() {
+    return this.code.value;
   }
 
   getTotal() {

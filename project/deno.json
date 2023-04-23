@@ -13,7 +13,8 @@
   },
   "tasks": {
     "dev": "deno run --watch main.ts",
-    "test": "deno test --watch"
+    "test:watch": "deno test --watch",
+    "test:coverage": "deno test --coverage=coverage && deno coverage ./coverage"
   },
   "deno": {
     "version": "1.32.5",
