@@ -1,24 +1,17 @@
 import { PlaceOrder } from '../../src/application/usecase/place_order';
 import { PostgresConnectionAdapter } from '../../src/infra/database';
-import {
-  CouponRepositoryDatabase,
-  ItemRepositoryDatabase,
-  OrderRepositoryDatabase,
-} from '../../src/infra/repository/database';
+import { DatabaseRepositoryFactory } from '../../src/infra/factory';
+import { OrderRepositoryDatabase } from '../../src/infra/repository/database';
 
 let placeOrder: PlaceOrder;
 let orderRepository: OrderRepositoryDatabase;
 
 beforeEach(function () {
   const connection = PostgresConnectionAdapter.getInstance();
-  const itemRepository = new ItemRepositoryDatabase(connection);
   orderRepository = new OrderRepositoryDatabase(connection);
-  const couponRepository = new CouponRepositoryDatabase(connection);
-  placeOrder = new PlaceOrder(
-    itemRepository,
-    orderRepository,
-    couponRepository,
-  );
+  const repositoryFactory = new DatabaseRepositoryFactory();
+  // const repositoryFactory = new MemoryRepositoryFactory();
+  placeOrder = new PlaceOrder(repositoryFactory);
 });
 
 test('Deve fazer um pedido', async function () {

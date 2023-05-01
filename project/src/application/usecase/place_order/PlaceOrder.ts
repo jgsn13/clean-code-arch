@@ -1,4 +1,5 @@
 import { DefaultFreightCalculator, Order } from '../../../domain/entity';
+import { RepositoryFactory } from '../../../domain/factory';
 import {
   CouponRepository,
   ItemRepository,
@@ -7,11 +8,15 @@ import {
 import { PlaceOrderInput, PlaceOrderOutput } from './';
 
 export default class PlaceOrder {
-  constructor(
-    readonly itemRepository: ItemRepository,
-    readonly orderRepository: OrderRepository,
-    readonly couponRepository: CouponRepository,
-  ) {}
+  private readonly itemRepository: ItemRepository;
+  private readonly couponRepository: CouponRepository;
+  private readonly orderRepository: OrderRepository;
+
+  constructor(repositoryFactory: RepositoryFactory) {
+    this.itemRepository = repositoryFactory.createItemRepository();
+    this.couponRepository = repositoryFactory.createCouponRepository();
+    this.orderRepository = repositoryFactory.createOrderRepository();
+  }
 
   async execute(input: PlaceOrderInput): Promise<PlaceOrderOutput> {
     const sequence = (await this.orderRepository.count()) + 1;
