@@ -1,10 +1,12 @@
-import Coupon from './Coupon.ts';
-import Cpf from './Cpf.ts';
-import DefaultFreightCalculator from './DefaultFreightCalculator.ts';
-import FreightCalculator from './FreightCalculator.ts';
-import Item from './Item.ts';
-import OrderCode from './OrderCode.ts';
-import OrderItem from './OrderItem.ts';
+import {
+  Coupon,
+  Cpf,
+  DefaultFreightCalculator,
+  FreightCalculator,
+  Item,
+  OrderCode,
+  OrderItem,
+} from './';
 
 export default class Order {
   cpf: Cpf;

@@ -1,4 +1,4 @@
-import CurrencyAPI from 'src/CurrencyAPI.ts';
+import CurrencyAPI from './CurrencyAPI';
 
 export default class Account {
   balance = 0;

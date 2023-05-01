@@ -1,15 +1,15 @@
-import { assertEquals } from 'std/testing/asserts.ts';
-
-import PlaceOrder from '../../src/application/usecase/place_order/PlaceOrder.ts';
-import PostgresConnectionAdapter from '../../src/infra/database/PostgresConnectionAdapter.ts';
-import CouponRepositoryDatabase from '../../src/infra/repository/database/CouponRepositoryDatabase.ts';
-import ItemRepositoryDatabase from '../../src/infra/repository/database/ItemRepositoryDatabase.ts';
-import OrderRepositoryDatabase from '../../src/infra/repository/database/OrderRepositoryDatabase.ts';
+import { PlaceOrder } from '../../src/application/usecase/place_order';
+import { PostgresConnectionAdapter } from '../../src/infra/database';
+import {
+  CouponRepositoryDatabase,
+  ItemRepositoryDatabase,
+  OrderRepositoryDatabase,
+} from '../../src/infra/repository/database';
 
 let placeOrder: PlaceOrder;
 let orderRepository: OrderRepositoryDatabase;
 
-function beforeEach() {
+beforeEach(function () {
   const connection = PostgresConnectionAdapter.getInstance();
   const itemRepository = new ItemRepositoryDatabase(connection);
   orderRepository = new OrderRepositoryDatabase(connection);
@@ -19,18 +19,7 @@ function beforeEach() {
     orderRepository,
     couponRepository,
   );
-}
-
-function test(name: string, fn: () => Promise<void>) {
-  Deno.test({
-    name,
-    async fn() {
-      beforeEach();
-      await fn();
-      await afterEach();
-    },
-  });
-}
+});
 
 test('Deve fazer um pedido', async function () {
   const input = {
@@ -44,7 +33,7 @@ test('Deve fazer um pedido', async function () {
     coupon: 'VALE20',
   };
   const output = await placeOrder.execute(input);
-  assertEquals(output.total, 138);
+  expect(output.total).toBe(138);
 });
 
 test('Deve fazer um pedido com cálculo de frete', async function () {
@@ -58,7 +47,7 @@ test('Deve fazer um pedido com cálculo de frete', async function () {
     date: new Date('2023-04-22'),
   };
   const output = await placeOrder.execute(input);
-  assertEquals(output.total, 6350);
+  expect(output.total).toBe(6350);
 });
 
 test('Deve fazer um pedido com código', async function () {
@@ -72,9 +61,9 @@ test('Deve fazer um pedido com código', async function () {
     date: new Date('2023-04-22'),
   };
   const output = await placeOrder.execute(input);
-  assertEquals(output.code, '202300000001');
+  expect(output.code).toBe('202300000001');
 });
 
-async function afterEach() {
+afterEach(async function () {
   await orderRepository.clear();
-}
+});

@@ -1,10 +1,10 @@
-import DefaultFreightCalculator from '../../../domain/entity/DefaultFreightCalculator.ts';
-import Order from '../../../domain/entity/Order.ts';
-import CouponRepository from '../../../domain/repository/CouponRepository.ts';
-import ItemRepository from '../../../domain/repository/ItemRepository.ts';
-import OrderRepository from '../../../domain/repository/OrderRepository.ts';
-import PlaceOrderInput from './PlaceOrderInput.ts';
-import PlaceOrderOutput from './PlaceOrderOutput.ts';
+import { DefaultFreightCalculator, Order } from '../../../domain/entity';
+import {
+  CouponRepository,
+  ItemRepository,
+  OrderRepository,
+} from '../../../domain/repository';
+import { PlaceOrderInput, PlaceOrderOutput } from './';
 
 export default class PlaceOrder {
   constructor(

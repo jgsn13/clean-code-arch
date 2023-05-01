@@ -1,4 +1,4 @@
-import CouponRepository from '../../../domain/repository/CouponRepository.ts';
+import { CouponRepository } from '../../../domain/repository';
 
 export default class ValidateCoupon {
   constructor(readonly couponRepository: CouponRepository) {}

@@ -1,4 +1,4 @@
-import Order from '../entity/Order.ts';
+import { Order } from '../entity';
 
 export default interface OrderRepository {
   save(order: Order): Promise<void>;

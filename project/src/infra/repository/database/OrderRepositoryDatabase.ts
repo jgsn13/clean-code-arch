@@ -1,6 +1,6 @@
-import Order from '../../../domain/entity/Order.ts';
-import OrderRepository from '../../../domain/repository/OrderRepository.ts';
-import Connection from '../../database/Connection.ts';
+import { Order } from '../../../domain/entity';
+import { OrderRepository } from '../../../domain/repository';
+import { Connection } from '../../database';
 
 export default class OrderRepositoryDatabase implements OrderRepository {
   constructor(readonly connection: Connection) {}
@@ -15,13 +15,21 @@ export default class OrderRepositoryDatabase implements OrderRepository {
         sequence,
         coupon
       ) VALUES (
-        '${order.getCode()}',
-        '${order.getCpf()}',
-        '${order.date.toISOString()}',
-        ${order.getFreight()},
-        ${order.sequence},
-        '${order.coupon?.code ?? ''}'
+        $1,
+        $2,
+        $3,
+        $4,
+        $5,
+        $6
       ) returning *`,
+      [
+        order.getCode(),
+        order.getCpf(),
+        order.date.toISOString(),
+        order.getFreight(),
+        order.sequence,
+        order.coupon?.code,
+      ],
     );
 
     for (const orderItem of order.getOrderItems()) {
@@ -32,24 +40,31 @@ export default class OrderRepositoryDatabase implements OrderRepository {
           price,
           quantity
         ) VALUES (
-          ${orderItem.idItem},
-          ${orderData.id_order},
-          ${orderItem.price},
-          ${orderItem.quantity}
+          $1,
+          $2,
+          $3,
+          $4
         )`,
+        [
+          orderItem.idItem,
+          orderData.id_order,
+          orderItem.price,
+          orderItem.quantity,
+        ],
       );
     }
   }
 
   async count(): Promise<number> {
     const [orderData] = await this.connection.query(
-      `SELECT count(*)::int AS count FROM ccca.order`,
+      'SELECT count(*)::int AS count FROM ccca.order',
+      [],
     );
     return orderData.count;
   }
 
   async clear(): Promise<void> {
-    await this.connection.query('DELETE FROM ccca.order_item');
-    await this.connection.query('DELETE FROM ccca.order');
+    await this.connection.query('DELETE FROM ccca.order_item', []);
+    await this.connection.query('DELETE FROM ccca.order', []);
   }
 }

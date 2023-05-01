@@ -1,8 +1,7 @@
-import { assertEquals } from 'std/testing/asserts.ts';
-import PostgresConnectionAdapter from '../../src/infra/database/PostgresConnectionAdapter.ts';
+import { PostgresConnectionAdapter } from '../../src/infra/database';
 
-Deno.test('Deve criar uma conexão com o banco de dados', async function () {
+test('Deve criar uma conexão com o banco de dados', async function () {
   const connection = PostgresConnectionAdapter.getInstance();
-  const itemsData = await connection.query('SELECT * FROM ccca.item');
-  assertEquals(itemsData.length, 6);
+  const itemsData = await connection.query('SELECT * FROM ccca.item', []);
+  expect(itemsData.length).toBe(6);
 });

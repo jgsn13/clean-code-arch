@@ -1,12 +1,12 @@
-import { assertEquals } from 'std/testing/asserts.ts';
+import {
+  SimulateFreight,
+  SimulateFreightInput,
+} from '../../src/application/usecase/simulate_freight';
+import { DefaultFreightCalculator } from '../../src/domain/entity';
+import { PostgresConnectionAdapter } from '../../src/infra/database';
+import { ItemRepositoryDatabase } from '../../src/infra/repository/database';
 
-import SimulateFreight from '../../src/application/usecase/simulate_freight/SimulateFreight.ts';
-import SimulateFreightInput from '../../src/application/usecase/simulate_freight/SimulateFreightInput.ts';
-import DefaultFreightCalculator from '../../src/domain/entity/DefaultFreightCalculator.ts';
-import PostgresConnectionAdapter from '../../src/infra/database/PostgresConnectionAdapter.ts';
-import ItemRepositoryDatabase from '../../src/infra/repository/database/ItemRepositoryDatabase.ts';
-
-Deno.test('Deve simular o frete dos itens', async function () {
+test('Deve simular o frete dos itens', async function () {
   const connection = PostgresConnectionAdapter.getInstance();
   const itemRepository = new ItemRepositoryDatabase(connection);
   const freightCalculator = new DefaultFreightCalculator();
@@ -29,5 +29,5 @@ Deno.test('Deve simular o frete dos itens', async function () {
     },
   ]);
   const output = await simulateFreight.execute(input);
-  assertEquals(output.amount, 260);
+  expect(output.amount).toBe(260);
 });

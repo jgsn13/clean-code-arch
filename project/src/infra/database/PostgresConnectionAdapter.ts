@@ -1,12 +1,12 @@
-import { Client } from 'postgres';
-import Connection from './Connection.ts';
+import pgp from 'pg-promise';
+import { Connection } from './';
 
 export default class PostgresConnectionAdapter implements Connection {
-  private client: Client;
+  private pgp: any;
   static instance: PostgresConnectionAdapter;
 
   private constructor() {
-    this.client = new Client('postgres://postgres:j123@172.17.0.2:5432/app');
+    this.pgp = pgp()('postgres://postgres:j123@172.17.0.2:5432/app');
   }
 
   static getInstance() {
@@ -16,10 +16,7 @@ export default class PostgresConnectionAdapter implements Connection {
     return PostgresConnectionAdapter.instance;
   }
 
-  async query(statement: string): Promise<any> {
-    await this.client.connect();
-    const result = await this.client.queryObject(statement);
-    await this.client.end();
-    return result.rows;
+  async query(statement: string, params: any[]): Promise<any> {
+    return this.pgp.query(statement, params);
   }
 }

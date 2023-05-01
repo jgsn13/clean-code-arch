@@ -1,13 +1,14 @@
-import Item from '../../../domain/entity/Item.ts';
-import ItemRepository from '../../../domain/repository/ItemRepository.ts';
-import Connection from '../../database/Connection.ts';
+import { Item } from '../../../domain/entity';
+import { ItemRepository } from '../../../domain/repository';
+import { Connection } from '../../database';
 
 export default class ItemRepositoryDatabase implements ItemRepository {
   constructor(readonly connection: Connection) {}
 
   async findById(idItem: number): Promise<Item | undefined> {
     const [itemData] = await this.connection.query(
-      `SELECT * FROM ccca.item WHERE id_item = ${idItem}`,
+      'SELECT * FROM ccca.item WHERE id_item = $1',
+      [idItem],
     );
 
     if (!itemData) return;

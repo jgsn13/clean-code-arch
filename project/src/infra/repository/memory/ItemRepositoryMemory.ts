@@ -1,5 +1,5 @@
-import Item from '../../../domain/entity/Item.ts';
-import ItemRepository from '../../../domain/repository/ItemRepository.ts';
+import { Item } from '../../../domain/entity';
+import { ItemRepository } from '../../../domain/repository';
 
 export default class ItemRepositoryMemory implements ItemRepository {
   items: Item[];

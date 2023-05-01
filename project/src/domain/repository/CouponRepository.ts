@@ -1,4 +1,4 @@
-import Coupon from '../entity/Coupon.ts';
+import { Coupon } from '../entity';
 
 export default interface CouponRepository {
   findByCode(code: string): Promise<Coupon | undefined>;

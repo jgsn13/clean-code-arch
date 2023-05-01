@@ -1,5 +1,5 @@
-import Order from '../../../domain/entity/Order.ts';
-import OrderRepository from '../../../domain/repository/OrderRepository.ts';
+import { Order } from '../../../domain/entity';
+import { OrderRepository } from '../../../domain/repository';
 
 export default class OrderRepositoryMemory implements OrderRepository {
   orders: Order[];

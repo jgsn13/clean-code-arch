@@ -1,3 +1,3 @@
 export default interface Connection {
-  query(statement: string): Promise<any>;
+  query(statement: string, params: any[]): Promise<any>;
 }
