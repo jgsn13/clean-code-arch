@@ -6,7 +6,7 @@ import { Item } from './item';
 import { FreightCalculator } from './freight-calculator';
 import { createDefaultFreightCalculator } from './default-freight-calculator';
 
-interface Order {
+type Order = Readonly<{
   cpf: Cpf;
   date: Date;
   freightCalculator: FreightCalculator;
@@ -15,60 +15,46 @@ interface Order {
   freight: number;
   code: OrderCode;
   coupon?: Coupon;
-}
+}>;
 
-function createOrder(
+const createOrder = (
   cpf: string,
   date: Date = new Date(),
   freightCalculator: FreightCalculator = createDefaultFreightCalculator(),
   sequence = 1,
-): Order {
-  return {
-    cpf: createCpf(cpf),
-    date,
-    freightCalculator,
-    sequence,
-    orderItems: [],
-    freight: 0,
-    code: createOrderCode(date, sequence),
-  };
-}
+): Order => ({
+  cpf: createCpf(cpf),
+  date,
+  freightCalculator,
+  sequence,
+  orderItems: [],
+  freight: 0,
+  code: createOrderCode(date, sequence),
+});
 
-function addItemInOrder(order: Order, item: Item, quantity: number): Order {
-  return {
-    ...order,
-    freight: order.freight + order.freightCalculator(item) * quantity,
-    orderItems: [
-      ...order.orderItems,
-      createOrderItem(item.idItem, item.price, quantity),
-    ],
-  };
-}
+const addItemInOrder = (order: Order, item: Item, quantity: number): Order => ({
+  ...order,
+  freight: order.freight + order.freightCalculator(item) * quantity,
+  orderItems: [
+    ...order.orderItems,
+    createOrderItem(item.idItem, item.price, quantity),
+  ],
+});
 
-function addCouponInOrder(order: Order, coupon: Coupon): Order {
-  return {
-    ...order,
-    coupon: !isExpiredCoupon(coupon, order.date) ? coupon : undefined,
-  };
-}
+const addCouponInOrder = (order: Order, coupon: Coupon): Order => ({
+  ...order,
+  coupon: !isExpiredCoupon(coupon, order.date) ? coupon : undefined,
+});
 
-function getOrderFreight(order: Order): number {
-  return order.freight;
-}
+const getOrderFreight = (order: Order): number => order.freight;
 
-function getOrderCode(order: Order): string {
-  return order.code.value;
-}
+const getOrderCode = (order: Order): string => order.code.value;
 
-function getOrderCpf(order: Order): string {
-  return order.cpf.value;
-}
+const getOrderCpf = (order: Order): string => order.cpf.value;
 
-function getOrderItems(order: Order): OrderItem[] {
-  return order.orderItems;
-}
+const getOrderItems = (order: Order): OrderItem[] => order.orderItems;
 
-function getOrderTotal(order: Order): number {
+const getOrderTotal = (order: Order): number => {
   let total = order.orderItems.reduce(
     (acc, orderItem) => acc + getOrderItemTotal(orderItem),
     0,
@@ -76,7 +62,7 @@ function getOrderTotal(order: Order): number {
   if (order.coupon) total -= calculateCouponDiscount(order.coupon, total);
   total += getOrderFreight(order);
   return total;
-}
+};
 
 export {
   Order,

@@ -1,14 +1,14 @@
-interface ItemInput {
+type ItemInput = Readonly<{
   idItem: number;
   quantity: number;
-}
+}>;
 
-interface SimulateFreightInput {
+type SimulateFreightInput = Readonly<{
   items: ItemInput[];
-}
+}>;
 
-function createSimulateFreightInput(items: ItemInput[]): SimulateFreightInput {
-  return { items };
-}
+const createSimulateFreightInput = (
+  items: ItemInput[],
+): SimulateFreightInput => ({ items });
 
 export { SimulateFreightInput, createSimulateFreightInput };

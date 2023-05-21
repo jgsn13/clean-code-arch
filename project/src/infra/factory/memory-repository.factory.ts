@@ -7,22 +7,18 @@ import {
   createClearOrdersMemory,
 } from '../repository/memory/order-repository-memory';
 
-const createMemoryRepositoryFactory = function(): RepositoryFactory {
-  return function() {
-    return {
-      createItemRepository: () => ({
-        findItemById: createFindItemByIdMemory(),
-      }),
-      createCouponRepository: () => ({
-        findCouponByCode: createFindCouponByCodeMemory(),
-      }),
-      createOrderRepository: () => ({
-        saveOrder: createSaveOrderMemory(),
-        countOrders: createCountOrdersMemory(),
-        clearOrders: createClearOrdersMemory(),
-      }),
-    };
-  };
-};
+const createMemoryRepositoryFactory = (): RepositoryFactory => () => ({
+  createItemRepository: () => ({
+    findItemById: createFindItemByIdMemory(),
+  }),
+  createCouponRepository: () => ({
+    findCouponByCode: createFindCouponByCodeMemory(),
+  }),
+  createOrderRepository: () => ({
+    saveOrder: createSaveOrderMemory(),
+    countOrders: createCountOrdersMemory(),
+    clearOrders: createClearOrdersMemory(),
+  }),
+});
 
 export { createMemoryRepositoryFactory };

@@ -1,6 +1,6 @@
 import { createOrderCode } from '../../src/domain/entity/order-code';
 
-test('Deve criar um código de pedido', function() {
+test('Deve criar um código de pedido', () => {
   const date = new Date('2020-10-01');
   const sequence = 1;
   const orderCode = createOrderCode(date, sequence);

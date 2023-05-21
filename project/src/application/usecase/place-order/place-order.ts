@@ -12,19 +12,17 @@ import { createDefaultFreightCalculator } from '../../../domain/entity/default-f
 
 type PlaceOrder = (input: PlaceOrderInput) => Promise<PlaceOrderOutput>;
 
-const createPlaceOrder = function(
-  repositoryFactory: RepositoryFactory,
-): PlaceOrder {
-  return async function placeOrder(input: PlaceOrderInput) {
-    const {
-      createOrderRepository,
-      createItemRepository,
-      createCouponRepository,
-    } = repositoryFactory();
-    const { countOrders, saveOrder } = createOrderRepository();
-    const { findItemById } = createItemRepository();
-    const { findCouponByCode } = createCouponRepository();
+const createPlaceOrder = (repositoryFactory: RepositoryFactory): PlaceOrder => {
+  const {
+    createOrderRepository,
+    createItemRepository,
+    createCouponRepository,
+  } = repositoryFactory();
+  const { countOrders, saveOrder } = createOrderRepository();
+  const { findItemById } = createItemRepository();
+  const { findCouponByCode } = createCouponRepository();
 
+  return async (input: PlaceOrderInput) => {
     const sequence = (await countOrders()) + 1;
     let order = createOrder(
       input.cpf,

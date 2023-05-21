@@ -1,11 +1,11 @@
-interface SimulateFreightOutput {
+type SimulateFreightOutput = Readonly<{
   amount: number;
-}
+}>;
 
-function createSimulateFreightOutput(amount: number): SimulateFreightOutput {
-  return {
-    amount,
-  };
-}
+const createSimulateFreightOutput = (
+  amount: number,
+): SimulateFreightOutput => ({
+  amount,
+});
 
 export { SimulateFreightOutput, createSimulateFreightOutput };

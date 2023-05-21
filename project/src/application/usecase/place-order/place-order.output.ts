@@ -1,13 +1,14 @@
-interface PlaceOrderOutput {
+type PlaceOrderOutput = Readonly<{
   code: string;
   total: number;
-}
+}>;
 
-function createPlaceOrderOutput(code: string, total: number): PlaceOrderOutput {
-  return {
-    code,
-    total,
-  };
-}
+const createPlaceOrderOutput = (
+  code: string,
+  total: number,
+): PlaceOrderOutput => ({
+  code,
+  total,
+});
 
 export { PlaceOrderOutput, createPlaceOrderOutput };

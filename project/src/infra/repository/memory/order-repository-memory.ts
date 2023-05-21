@@ -5,26 +5,16 @@ import {
   ClearOrders,
 } from '../../../domain/repository/order.repository';
 
-let orders: Order[] = [];
+let orders: Readonly<Order[]> = [];
 
-const createSaveOrderMemory = function(): SaveOrder {
-  return async function(order: Order): Promise<void> {
-    orders.push(order);
-    return Promise.resolve();
-  };
+const createSaveOrderMemory = (): SaveOrder => async (order: Order) => {
+  orders = [...orders, order];
 };
 
-const createCountOrdersMemory = function(): CountOrders {
-  return async function(): Promise<number> {
-    return Promise.resolve(orders.length);
-  };
-};
+const createCountOrdersMemory = (): CountOrders => async () => orders.length;
 
-const createClearOrdersMemory = function(): ClearOrders {
-  return async function(): Promise<void> {
-    orders = [];
-    return Promise.resolve();
-  };
+const createClearOrdersMemory = (): ClearOrders => async () => {
+  orders = [];
 };
 
 export {

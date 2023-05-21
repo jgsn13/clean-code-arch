@@ -11,19 +11,19 @@ import { createCoupon } from '../../src/domain/entity/coupon';
 import { createDefaultFreightCalculator } from '../../src/domain/entity/default-freight-calculator';
 import { createFixedFreightCalculator } from '../../src/domain/entity/fixed-freight-calculator';
 
-test('Deve criar um pedido vazio com CPF válido', function() {
+test('Deve criar um pedido vazio com CPF válido', () => {
   const cpf = '592.794.780-87';
   const order = createOrder(cpf);
   const total = getOrderTotal(order);
   expect(total).toBe(0);
 });
 
-test('Deve tentar criar um pedido vazio com CPF inválido', function() {
+test('Deve tentar criar um pedido vazio com CPF inválido', () => {
   const cpf = '111.111.111-11';
   expect(() => createOrder(cpf)).toThrow(new Error('Invalid cpf'));
 });
 
-test('Deve criar um pedido com 3 itens', function() {
+test('Deve criar um pedido com 3 itens', () => {
   const cpf = '592.794.780-87';
   let order = createOrder(cpf);
   order = addItemInOrder(order, createItem(1, 'Música', 'CD', 30), 3);
@@ -33,7 +33,7 @@ test('Deve criar um pedido com 3 itens', function() {
   expect(total).toBe(160);
 });
 
-test('Deve criar um pedido com 3 itens com um cupom de desconto', function() {
+test('Deve criar um pedido com 3 itens com um cupom de desconto', () => {
   const cpf = '592.794.780-87';
   let order = createOrder(cpf);
   order = addItemInOrder(order, createItem(1, 'Música', 'CD', 30), 3);
@@ -44,7 +44,7 @@ test('Deve criar um pedido com 3 itens com um cupom de desconto', function() {
   expect(total).toBe(128);
 });
 
-test('Deve criar um pedido com 3 itens com um cupom de desconto expirado', function() {
+test('Deve criar um pedido com 3 itens com um cupom de desconto expirado', () => {
   const cpf = '592.794.780-87';
   let order = createOrder(cpf, new Date('2023-04-21'));
   order = addItemInOrder(order, createItem(1, 'Música', 'CD', 30), 3);
@@ -58,7 +58,7 @@ test('Deve criar um pedido com 3 itens com um cupom de desconto expirado', funct
   expect(total).toBe(160);
 });
 
-test('Deve criar um pedido com 3 itens com o cálculo do frete com a estratégia default', function() {
+test('Deve criar um pedido com 3 itens com o cálculo do frete com a estratégia default', () => {
   const cpf = '592.794.780-87';
   let order = createOrder(cpf, new Date(), createDefaultFreightCalculator());
   order = addItemInOrder(
@@ -89,7 +89,7 @@ test('Deve criar um pedido com 3 itens com o cálculo do frete com a estratégia
   expect(freight).toBe(260);
 });
 
-test('Deve criar um pedido com 3 itens com o cálculo do frete com a estratégia fixo', function() {
+test('Deve criar um pedido com 3 itens com o cálculo do frete com a estratégia fixo', () => {
   const cpf = '592.794.780-87';
   let order = createOrder(cpf, new Date(), createFixedFreightCalculator());
   order = addItemInOrder(
@@ -120,7 +120,7 @@ test('Deve criar um pedido com 3 itens com o cálculo do frete com a estratégia
   expect(freight).toBe(50);
 });
 
-test('Deve criar um pedido com código', function() {
+test('Deve criar um pedido com código', () => {
   const cpf = '592.794.780-87';
   let order = createOrder(cpf, new Date(), createFixedFreightCalculator());
   order = addItemInOrder(

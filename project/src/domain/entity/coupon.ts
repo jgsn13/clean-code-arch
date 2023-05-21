@@ -1,38 +1,31 @@
-interface Coupon {
-  readonly code: string;
-  readonly percentage: number;
-  readonly expireDate?: Date;
-}
+type Coupon = Readonly<{
+  code: string;
+  percentage: number;
+  expireDate?: Date;
+}>;
 
-function createCoupon(
+const createCoupon = (
   code: string,
   percentage: number,
   expireDate?: Date,
-): Coupon {
-  return {
-    code,
-    percentage,
-    expireDate,
-  };
-}
+): Coupon => ({
+  code,
+  percentage,
+  expireDate,
+});
 
-function isValidCoupon(coupon: Coupon, today: Date = new Date()): boolean {
-  return !coupon.expireDate || coupon.expireDate >= today;
-}
+const isValidCoupon = (coupon: Coupon, today: Date = new Date()): boolean =>
+  !coupon.expireDate || coupon.expireDate >= today;
 
-function isExpiredCoupon(coupon: Coupon, today: Date = new Date()): boolean {
-  return !isValidCoupon(coupon, today);
-}
+const isExpiredCoupon = (coupon: Coupon, today: Date = new Date()): boolean =>
+  !isValidCoupon(coupon, today);
 
-function calculateCouponDiscount(
+const calculateCouponDiscount = (
   coupon: Coupon,
   amount: number,
   today: Date = new Date(),
-): number {
-  return isExpiredCoupon(coupon, today)
-    ? 0
-    : (amount * coupon.percentage) / 100;
-}
+): number =>
+  isExpiredCoupon(coupon, today) ? 0 : (amount * coupon.percentage) / 100;
 
 export {
   Coupon,

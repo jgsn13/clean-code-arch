@@ -3,7 +3,7 @@ import {
   getOrderItemTotal,
 } from '../../src/domain/entity/order-item';
 
-test('Deve criar um item do pedido', function() {
+test('Deve criar um item do pedido', () => {
   const orderItem = createOrderItem(1, 1000, 10);
   expect(getOrderItemTotal(orderItem)).toBe(10000);
 });

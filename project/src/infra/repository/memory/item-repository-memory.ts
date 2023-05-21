@@ -1,7 +1,7 @@
 import { Item, createItem } from '../../../domain/entity/item';
 import { FindItemById } from '../../../domain/repository/item.repository';
 
-const items: Item[] = [
+const items: Readonly<Item[]> = [
   createItem(1, 'Música', 'CD', 30, 30, 30, 10, 1),
   createItem(2, 'Vídeo', 'DVD', 50, 40, 20, 10, 1),
   createItem(3, 'Vídeo', 'VHS', 10, 40, 20, 10, 1),
@@ -10,10 +10,7 @@ const items: Item[] = [
   createItem(6, 'Acessórios', 'Cabo', 30, 10, 10, 10, 0.9),
 ];
 
-const createFindItemByIdMemory = function(): FindItemById {
-  return async function(idItem: number): Promise<Item | undefined> {
-    return Promise.resolve(items.find((item) => item.idItem === idItem));
-  };
-};
+const createFindItemByIdMemory = (): FindItemById => async (idItem: number) =>
+  Promise.resolve(items.find((item) => item.idItem === idItem));
 
 export { createFindItemByIdMemory };

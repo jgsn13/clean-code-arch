@@ -8,22 +8,18 @@ import {
   createClearOrdersDatabase,
 } from '../repository/database/order-repository-database';
 
-const createDatabaseRepositoryFactory = function(): RepositoryFactory {
-  return function() {
-    return {
-      createItemRepository: () => ({
-        findItemById: createFindItemByIdDatabase(getPostgresQuery()),
-      }),
-      createCouponRepository: () => ({
-        findCouponByCode: createFindCouponByCodeDatabase(getPostgresQuery()),
-      }),
-      createOrderRepository: () => ({
-        saveOrder: createSaveOrderDatabase(getPostgresQuery()),
-        countOrders: createCountOrdersDatabase(getPostgresQuery()),
-        clearOrders: createClearOrdersDatabase(getPostgresQuery()),
-      }),
-    };
-  };
-};
+const createDatabaseRepositoryFactory = (): RepositoryFactory => () => ({
+  createItemRepository: () => ({
+    findItemById: createFindItemByIdDatabase(getPostgresQuery()),
+  }),
+  createCouponRepository: () => ({
+    findCouponByCode: createFindCouponByCodeDatabase(getPostgresQuery()),
+  }),
+  createOrderRepository: () => ({
+    saveOrder: createSaveOrderDatabase(getPostgresQuery()),
+    countOrders: createCountOrdersDatabase(getPostgresQuery()),
+    clearOrders: createClearOrdersDatabase(getPostgresQuery()),
+  }),
+});
 
 export { createDatabaseRepositoryFactory };

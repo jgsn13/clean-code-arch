@@ -1,23 +1,20 @@
-interface OrderItem {
+type OrderItem = Readonly<{
   idItem: number;
   price: number;
   quantity: number;
-}
+}>;
 
-function createOrderItem(
+const createOrderItem = (
   idItem: number,
   price: number,
   quantity: number,
-): OrderItem {
-  return {
-    idItem,
-    price,
-    quantity,
-  };
-}
+): OrderItem => ({
+  idItem,
+  price,
+  quantity,
+});
 
-function getOrderItemTotal(orderItem: OrderItem): number {
-  return orderItem.price * orderItem.quantity;
-}
+const getOrderItemTotal = (orderItem: OrderItem): number =>
+  orderItem.price * orderItem.quantity;
 
 export { OrderItem, createOrderItem, getOrderItemTotal };

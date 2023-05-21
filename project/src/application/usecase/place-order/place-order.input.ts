@@ -1,27 +1,25 @@
-interface OrderItemInput {
+type OrderItemInput = Readonly<{
   idItem: number;
   quantity: number;
-}
+}>;
 
-interface PlaceOrderInput {
+type PlaceOrderInput = Readonly<{
   cpf: string;
   orderItems: OrderItemInput[];
   date: Date;
   coupon?: string;
-}
+}>;
 
-function createPlaceOrderInput(
+const createPlaceOrderInput = (
   cpf: string,
   orderItems: OrderItemInput[],
   date: Date,
   coupon?: string,
-): PlaceOrderInput {
-  return {
-    cpf,
-    orderItems,
-    date,
-    coupon,
-  };
-}
+): PlaceOrderInput => ({
+  cpf,
+  orderItems,
+  date,
+  coupon,
+});
 
 export { PlaceOrderInput, createPlaceOrderInput };

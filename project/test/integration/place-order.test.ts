@@ -10,7 +10,7 @@ import { createClearOrdersDatabase } from '../../src/infra/repository/database/o
 let placeOrder: PlaceOrder;
 let clearOrders: ClearOrders;
 
-beforeEach(function() {
+beforeEach(() => {
   const query = getPostgresQuery();
   clearOrders = createClearOrdersDatabase(query);
   const repositoryFactory = createDatabaseRepositoryFactory();
@@ -18,7 +18,7 @@ beforeEach(function() {
   placeOrder = createPlaceOrder(repositoryFactory);
 });
 
-test('Deve fazer um pedido', async function() {
+test('Deve fazer um pedido', async () => {
   const input = {
     cpf: '592.794.780-87',
     orderItems: [
@@ -33,7 +33,7 @@ test('Deve fazer um pedido', async function() {
   expect(output.total).toBe(138);
 });
 
-test('Deve fazer um pedido com cálculo de frete', async function() {
+test('Deve fazer um pedido com cálculo de frete', async () => {
   const input = {
     cpf: '592.794.780-87',
     orderItems: [
@@ -47,7 +47,7 @@ test('Deve fazer um pedido com cálculo de frete', async function() {
   expect(output.total).toBe(6350);
 });
 
-test('Deve fazer um pedido com código', async function() {
+test('Deve fazer um pedido com código', async () => {
   const input = {
     cpf: '592.794.780-87',
     orderItems: [
@@ -61,6 +61,6 @@ test('Deve fazer um pedido com código', async function() {
   expect(output.code).toBe('202300000001');
 });
 
-afterEach(async function() {
+afterEach(async () => {
   await clearOrders();
 });

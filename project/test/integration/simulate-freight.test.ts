@@ -6,7 +6,7 @@ import { createDefaultFreightCalculator } from '../../src/domain/entity/default-
 import { getPostgresQuery } from '../../src/infra/database';
 import { createFindItemByIdDatabase } from '../../src/infra/repository/database/item-repository-database';
 
-test('Deve simular o frete dos itens', async function() {
+test('Deve simular o frete dos itens', async () => {
   const query = getPostgresQuery();
   const findItemById = createFindItemByIdDatabase(query);
   const freightCalculator = createDefaultFreightCalculator();

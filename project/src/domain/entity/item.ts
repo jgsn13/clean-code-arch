@@ -1,4 +1,4 @@
-interface Item {
+type Item = Readonly<{
   idItem: number;
   category: string;
   description: string;
@@ -7,9 +7,9 @@ interface Item {
   height: number;
   length: number;
   weight: number;
-}
+}>;
 
-function createItem(
+const createItem = (
   idItem: number,
   category: string,
   description: string,
@@ -18,25 +18,21 @@ function createItem(
   height = 0,
   length = 0,
   weight = 0,
-): Item {
-  return {
-    idItem,
-    category,
-    description,
-    price,
-    width,
-    height,
-    length,
-    weight,
-  };
-}
+): Item => ({
+  idItem,
+  category,
+  description,
+  price,
+  width,
+  height,
+  length,
+  weight,
+});
 
-function getItemVolume(item: Item): number {
-  return (item.width / 100) * (item.height / 100) * (item.length / 100);
-}
+const getItemVolume = (item: Item): number =>
+  (item.width / 100) * (item.height / 100) * (item.length / 100);
 
-function getItemDensity(item: Item): number {
-  return item.weight / getItemVolume(item);
-}
+const getItemDensity = (item: Item): number =>
+  item.weight / getItemVolume(item);
 
 export { Item, createItem, getItemVolume, getItemDensity };

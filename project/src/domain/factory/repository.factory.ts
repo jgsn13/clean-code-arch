@@ -6,18 +6,20 @@ import {
   ClearOrders,
 } from '../repository/order.repository';
 
-type CreateItemRepository = () => { findItemById: FindItemById };
-type CreateCouponRepository = () => { findCouponByCode: FindCouponByCode };
-type CreateOrderRepository = () => {
+type CreateItemRepository = () => Readonly<{ findItemById: FindItemById }>;
+type CreateCouponRepository = () => Readonly<{
+  findCouponByCode: FindCouponByCode;
+}>;
+type CreateOrderRepository = () => Readonly<{
   saveOrder: SaveOrder;
   countOrders: CountOrders;
   clearOrders: ClearOrders;
-};
-type RepositoryFactory = () => {
+}>;
+type RepositoryFactory = () => Readonly<{
   createItemRepository: CreateItemRepository;
   createCouponRepository: CreateCouponRepository;
   createOrderRepository: CreateOrderRepository;
-};
+}>;
 
 export {
   CreateItemRepository,
