@@ -1,2 +1,2 @@
-export { default as Connection } from './Connection';
-export { default as PostgresConnectionAdapter } from './PostgresConnectionAdapter';
+export * from './connection';
+export * from './postgres-connection-adapter';

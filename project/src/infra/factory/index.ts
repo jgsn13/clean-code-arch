@@ -1,2 +1,2 @@
-export { default as DatabaseRepositoryFactory } from './DatabaseRepositoryFactory';
-export { default as MemoryRepositoryFactory } from './MemoryRepositoryFactory';
+export * from './database-repository.factory';
+export * from './memory-repository.factory';

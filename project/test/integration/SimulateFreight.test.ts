@@ -1,20 +1,20 @@
 import {
-  SimulateFreight,
-  SimulateFreightInput,
-} from '../../src/application/usecase/simulate_freight';
-import { DefaultFreightCalculator } from '../../src/domain/entity';
-import { PostgresConnectionAdapter } from '../../src/infra/database';
-import { ItemRepositoryDatabase } from '../../src/infra/repository/database';
+  createSimulateFreight,
+  createSimulateFreightInput,
+} from '../../src/application/usecase/simulate-freight';
+import { createDefaultFreightCalculator } from '../../src/domain/entity/default-freight-calculator';
+import { getPostgresQuery } from '../../src/infra/database';
+import { createFindItemByIdDatabase } from '../../src/infra/repository/database/item-repository-database';
 
-test('Deve simular o frete dos itens', async function () {
-  const connection = PostgresConnectionAdapter.getInstance();
-  const itemRepository = new ItemRepositoryDatabase(connection);
-  const freightCalculator = new DefaultFreightCalculator();
-  const simulateFreight = new SimulateFreight(
-    itemRepository,
+test('Deve simular o frete dos itens', async function() {
+  const query = getPostgresQuery();
+  const findItemById = createFindItemByIdDatabase(query);
+  const freightCalculator = createDefaultFreightCalculator();
+  const simulateFreight = createSimulateFreight(
+    findItemById,
     freightCalculator,
   );
-  const input = new SimulateFreightInput([
+  const input = createSimulateFreightInput([
     {
       idItem: 4,
       quantity: 1,
@@ -28,6 +28,6 @@ test('Deve simular o frete dos itens', async function () {
       quantity: 3,
     },
   ]);
-  const output = await simulateFreight.execute(input);
+  const output = await simulateFreight(input);
   expect(output.amount).toBe(260);
 });

@@ -1,6 +1,9 @@
-import { OrderItem } from '../../src/domain/entity';
+import {
+  createOrderItem,
+  getOrderItemTotal,
+} from '../../src/domain/entity/order-item';
 
-test('Deve criar um item do pedido', function () {
-  const orderItem = new OrderItem(1, 1000, 10);
-  expect(orderItem.getTotal()).toBe(10000);
+test('Deve criar um item do pedido', function() {
+  const orderItem = createOrderItem(1, 1000, 10);
+  expect(getOrderItemTotal(orderItem)).toBe(10000);
 });

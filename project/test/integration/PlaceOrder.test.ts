@@ -1,20 +1,24 @@
-import { PlaceOrder } from '../../src/application/usecase/place_order';
-import { PostgresConnectionAdapter } from '../../src/infra/database';
-import { DatabaseRepositoryFactory } from '../../src/infra/factory';
-import { OrderRepositoryDatabase } from '../../src/infra/repository/database';
+import {
+  PlaceOrder,
+  createPlaceOrder,
+} from '../../src/application/usecase/place-order';
+import { getPostgresQuery } from '../../src/infra/database';
+import { createDatabaseRepositoryFactory } from '../../src/infra/factory';
+import { ClearOrders } from '../../src/domain/repository/order.repository';
+import { createClearOrdersDatabase } from '../../src/infra/repository/database/order-repository-database';
 
 let placeOrder: PlaceOrder;
-let orderRepository: OrderRepositoryDatabase;
+let clearOrders: ClearOrders;
 
-beforeEach(function () {
-  const connection = PostgresConnectionAdapter.getInstance();
-  orderRepository = new OrderRepositoryDatabase(connection);
-  const repositoryFactory = new DatabaseRepositoryFactory();
-  // const repositoryFactory = new MemoryRepositoryFactory();
-  placeOrder = new PlaceOrder(repositoryFactory);
+beforeEach(function() {
+  const query = getPostgresQuery();
+  clearOrders = createClearOrdersDatabase(query);
+  const repositoryFactory = createDatabaseRepositoryFactory();
+  // const repositoryFactory = createMemoryRepositoryFactory();
+  placeOrder = createPlaceOrder(repositoryFactory);
 });
 
-test('Deve fazer um pedido', async function () {
+test('Deve fazer um pedido', async function() {
   const input = {
     cpf: '592.794.780-87',
     orderItems: [
@@ -25,11 +29,11 @@ test('Deve fazer um pedido', async function () {
     date: new Date('2023-04-22'),
     coupon: 'VALE20',
   };
-  const output = await placeOrder.execute(input);
+  const output = await placeOrder(input);
   expect(output.total).toBe(138);
 });
 
-test('Deve fazer um pedido com cálculo de frete', async function () {
+test('Deve fazer um pedido com cálculo de frete', async function() {
   const input = {
     cpf: '592.794.780-87',
     orderItems: [
@@ -39,11 +43,11 @@ test('Deve fazer um pedido com cálculo de frete', async function () {
     ],
     date: new Date('2023-04-22'),
   };
-  const output = await placeOrder.execute(input);
+  const output = await placeOrder(input);
   expect(output.total).toBe(6350);
 });
 
-test('Deve fazer um pedido com código', async function () {
+test('Deve fazer um pedido com código', async function() {
   const input = {
     cpf: '592.794.780-87',
     orderItems: [
@@ -53,10 +57,10 @@ test('Deve fazer um pedido com código', async function () {
     ],
     date: new Date('2023-04-22'),
   };
-  const output = await placeOrder.execute(input);
+  const output = await placeOrder(input);
   expect(output.code).toBe('202300000001');
 });
 
-afterEach(async function () {
-  await orderRepository.clear();
+afterEach(async function() {
+  await clearOrders();
 });
